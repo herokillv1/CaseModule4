@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js}"></script>
+    <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+    <title>Spring Customer</title>
+
+    <script>
+        const $ = e => document.querySelector(e);
+        const $$ = e => document.querySelectorAll(e);
+        const cursor = $(".custom-cursor");
+        // Cursor Event
+        /* ========== */
+        window.addEventListener("mousemove", ({pageY: Y, pageX: X}) => {
+            cursor.style.top = `${Y}px`;
+            cursor.style.left = `${X}px`;
+        })
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let menu = document.querySelectorAll('div.menu-navbar');
+            let menu1 = document.querySelectorAll('div.back-to-header');
+            menu = menu[0];
+            menu1 = menu1[0];
+            window.addEventListener("scroll", function () {
+                if (pageYOffset > 170) {
+                    menu.style.position = "fixed";
+                    menu.style.top = "0px";
+                    menu1.style.display = "block"
+                } else {
+                    menu.style.position = "relative";
+                    menu.style.top = "0px";
+                    menu1.style.display = "none"
+                }
+            })
+        })
+    </script>
+    <script>
+
+    </script>
+
+    <!--ajax-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.pack.js"></script>
+    <script>
+        function update(id, status) {
+            var json = {
+                "id": id,
+                "name": status
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: '/cart/update',
+                type: 'POST',
+                data: JSON.stringify(json),
+                success: function (data) {
+                    $('#quality').html(data.quality);
+                    $('#price').html(data.price);
+                    $('#total').html(data.totalPrice);
+                },
+            });
+            event.preventDefault();
+        }
+
+        function buy(id) {
+            var json = {
+                "id": id,
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: '/cart/buy',
+                type: 'POST',
+                data: JSON.stringify(json),
+                success: function (data) {
+                    alert("Thêm vào giỏ hàng thành công!")
+                },
+            });
+            event.preventDefault();
+        }
+    </script>
+    <!--ajax-->
+
+    <style type="text/css">
+        h3 {
+            background-color: blue;
+            color: white;
+            padding: 10px 0 10px 20px;
+        }
+
+        footer {
+            margin: 10px 0;
+        }
+
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        input[type=text], input[type=email] {
+            width: 100%;
+            padding: 12px 0px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 300px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        #form {
+            width: 500px;
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .notify span {
+            font-size: 15px;
+            color: blue;
+        }
+
+        /*front*/
+
+        .header {
+            position: relative;
+        }
+
+        .img-logo {
+            width: 100%;
+            height: 170px;
+        }
+
+        .block-login, .block-background {
+            text-align: center;
+        }
+
+        .name-shop {
+            margin: 30px;
+            font-size: 70px;
+        }
+
+        .menu-navbar {
+            background-color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            background-color: red;
+            height: 2000px;
+        }
+
+        .back-to-header {
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+            display: none;
+        }
+
+        .back-to-header a {
+            text-decoration: none;
+        }
+
+        .container-ef {
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            height: 50px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .text {
+            position: relative;
+            font-size: 1em;
+            background: #fff;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: .3em;
+            font-weight: bold;
+            padding: 5px;
+        }
+
+        .text span {
+            color: #fff;
+            mix-blend-mode: difference;
+        }
+
+        .text:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            background: #000;
+            animation: thangcover 4s linear infinite;
+        }
+
+        @keyframes thangcover {
+            0% {
+                left: 0;
+            }
+            50% {
+                left: calc(100% - 60px);
+            }
+            100% {
+                left: 0;
+            }
+        }
+
+        .name-shop {
+
+            color: black;
+            font-size: 100px;
+            background: white;
+            text-shadow: 0px 0px 0 rgb(137, 156, 213), 1px 1px 0 rgb(129, 148, 205), 2px 2px 0 rgb(120, 139, 196), 3px 3px 0 rgb(111, 130, 187), 4px 4px 0 rgb(103, 122, 179), 5px 5px 0 rgb(94, 113, 170), 6px 6px 0 rgb(85, 104, 161), 7px 7px 0 rgb(76, 95, 152), 8px 8px 0 rgb(68, 87, 144), 9px 9px 0 rgb(59, 78, 135), 10px 10px 0 rgb(50, 69, 126), 11px 11px 0 rgb(42, 61, 118), 12px 12px 0 rgb(33, 52, 109), 13px 13px 0 rgb(24, 43, 100), 14px 14px 0 rgb(15, 34, 91), 15px 15px 0 rgb(7, 26, 83), 16px 16px 0 rgb(-2, 17, 74), 17px 17px 0 rgb(-11, 8, 65), 18px 18px 0 rgb(-19, 0, 57), 19px 19px 0 rgb(-28, -9, 48), 20px 20px 0 rgb(-37, -18, 39), 21px 21px 20px rgba(0, 0, 0, 1), 21px 21px 1px rgba(0, 0, 0, 0.5), 0px 0px 20px rgba(0, 0, 0, .2);
+        }
+
+        /*product*/
+
+
+        a:hover {
+            text-decoration: none;
+            color: #05C2DE;
+            text-shadow: 2px 1px 1px white;
+            transition: 1s;
+        }
+
+        .content-inner {
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            backface-visibility: hidden;
+            transition: 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+
+        .content-inner > * {
+            backface-visibility: hidden;
+            transition: 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+
+        .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-size: cover;
+            background-attachment: scroll;
+            background-position: center;
+            background-repeat: repeat;
+            background-origin: content-box;
+        }
+
+
+        .content-inner .content-front,
+        .content-inner .content-back {
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            backface-visibility: hidden;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content-inner .cf-inner .inner {
+            align-items: stretch;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            backface-visibility: hidden;
+            transform: translateZ(95px) scale(0.81);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-inner:hover .content-front {
+            transform: rotateY(-180deg);
+        }
+
+        .content-inner:hover .content-back {
+            transform: rotateY(0deg);
+        }
+
+        .content-inner .content-back {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 85%;
+            z-index: 0;
+            transform: rotateY(180deg);
+            background: #292929;
+            background-image: url("https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80");
+        }
+
+        .content-inner .cf-inner {
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            width: 100%;
+            padding: 150px 20px;
+        }
+
+        .serv-price-wrap {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 30px;
+            margin-top: 14px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="header">
+    <div class="container-fluid header" id="header" style="border-bottom: solid 4px lightgrey">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-lg-2 col-xl-2 block-image">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-8 col-xl-8 block-background">
+                <h1 class="name-shop">Shop HQ</h1>
+                <br>
+                <div class="container-ef">
+                    <div class="text"><span>Chào mừng bạn đến với shop HQ chuyên Adidas</span></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-2 col-xl-2 block-login">
+                <a role="button" class="btn btn-primary" href="/login">Login</a>
+                <a role="button" class="btn btn-primary" href="/registration">Registation</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid menu-navbar" th:fragment="menu">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/home?action=shirt&type=Áo">Áo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/home?action=trousers&type=Quần">Quần</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/home?action=shoes&type=Giày">Giày</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                           name="regex" th:value="${regex}">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+</div>
+
+
+<div class="back-to-header" th:fragment="reload">
+    <a href="#header">Về đầu trang</a>
+</div>
+
+<footer class="page-footer font-small special-color-dark pt-4" th:fragment="footer">
+    <div class="container">
+        <ul class="list-unstyled list-inline text-center">
+            <li class="list-inline-item">
+                <a class="btn-floating btn-fb mx-1" href="https://www.facebook.com/ShopHQCodeGym/">
+                    <i class="fab fa-facebook-f"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-gplus mx-1">
+                    <i class="fab fa-google-plus-g"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-tw mx-1">
+                    <i class="fab fa-tiktok"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-li mx-1">
+                    <i class="fab fa-youtube"> </i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-copyright text-center py-3">© 2020
+        All rights reserved:
+        <a href="#"> ShopHQ.com</a>
+    </div>
+</footer>
+
+</body>
+</html>

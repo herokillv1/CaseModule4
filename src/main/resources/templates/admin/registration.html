@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<div th:replace="/layout :: header"></div>
+<div class="container-fluid menu-navbar">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/admin}">Trang chủ</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 product">
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 product">
+            <div id="form">
+                <form th:action="@{/admin/createstaff}" th:object="${user} " method="POST" enctype="multipart/form-data">
+                    <div>
+                        <label>Account</label>
+                        <th:block th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></th:block>
+                        <input type="text" th:field="*{account}"/>
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <th:block th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></th:block>
+                        <input type="password" th:field="*{password}"/>
+                    </div>
+                    <div>
+                        <label>FullName</label>
+                        <th:block th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></th:block>
+                        <input type="text" th:field="*{name}"/>
+                    </div>
+                    <div>
+                        <label>Age</label>
+                        <th:block th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></th:block>
+                        <input type="text" th:field="*{age}"/>
+                    </div>
+                    <div>
+                        <label>Render</label>
+                        <select th:field="*{render}">
+                            <option th:each="r : ${renders}" th:value="${r.id}" th:text="${r.ren}"/>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Phone</label>
+                        <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                        <input type="text" th:field="*{phone}"/>
+                    </div>
+                    <div>
+                        <label>Address</label>
+                        <th:block th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></th:block>
+                        <input type="text" th:field="*{address}"/>
+                    </div>
+                    <div>
+                        <label>Avatar</label>
+                        <input type="file" th:field="*{image}"/>
+                    </div>
+                    <input type="submit" value="Create new staff">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

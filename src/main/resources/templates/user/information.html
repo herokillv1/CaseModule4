@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<div th:replace="/layout :: header"></div>
+
+
+<div class="container-fluid menu-navbar">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/user}">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="/user/information">Update Information</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="/user/password">Change password</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="/user/bill">View bill</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 product">
+            <div class="block-image-product" style="position: relative">
+                <img th:src="@{'/content/' + ${user.getAvatar()}}" class="img-responsive img-thumbnail" alt="không có"
+                     width="600px" height="600px">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 product">
+            <div class="cusdetail">
+                <label>FullName:</label>
+                <label th:text="${user.getName()}"></label>
+            </div>
+            <div class="cusdetail">
+                <label>Age:</label>
+                <label th:text="${user.getAge()}"></label>
+            </div>
+            <div class="cusdetail">
+                <label>Render:</label>
+                <label th:text="${user.getRender()}"></label>
+            </div>
+            <div class="cusdetail">
+                <label>Address:</label>
+                <label th:text="${user.getAddress()}"></label>
+            </div>
+            <div class="cusdetail">
+                <label>Phone:</label>
+                <label th:text="${user.getPhone()}"></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

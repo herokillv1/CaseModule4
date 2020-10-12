@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head"></head>
+
+<body>
+
+<div th:replace="/layout :: header"></div>
+<div th:replace="/layout :: menu"></div>
+<div th:replace="/layout :: reload"></div>
+
+
+<a href="/admin/create">Create new product</a> |
+<a href="/admin/createstaff">Create new staff</a> |
+<a href="/admin/bill">All bill</a> |
+<a href="/admin/listuser">List user</a>
+
+
+<table id="customers">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Avatar</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.getName()}"></td>
+        <td th:text="${product.getPrice()}"></td>
+        <td><img th:src="@{'/content/' + ${product.getAvatar()}}" width="100" height="100" alt="Khongcoanh"/></td>
+        <td th:text="${product.getDescription()}"></td>
+        <td th:text="${product.typeProduct.getType()}"></td>
+        <td><a th:href="@{/admin/edit/{id}(id=${product.getId()})}">Edit</a></td>
+        <td><a role="button" th:href="@{/admin/delete/{id}(id=${product.getId()})}"
+               onclick="return confirm('Are you sure?')">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="container">
+    <div class="row">
+        <th:block th:if="${mess}">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-3 col-xl-3"></div>
+            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-9 col-xl-9">
+                <img class="img-responsive img-thumbnail" th:src="@{'/content/' + meomeomeo.jpg}" width="550px"
+                     height="200px"
+                     alt="Khongcoanh"/>
+            </div>
+        </th:block>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 product"></div>
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 product">
+            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number - 1},regex=${regex})}" th:if="${products.hasPrevious()}">Previous</a>
+            <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
+            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number + 1},regex=${regex})}" th:if="${products.hasNext()}">Next</a>
+        </div>
+    </div>
+</div>
+<p>
+    <a th:href="@{/admin}">
+        Back to menu
+    </a>
+</p>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
