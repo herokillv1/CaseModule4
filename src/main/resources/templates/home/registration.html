@@ -3,7 +3,22 @@
 <head th:replace="/layout :: head"></head>
 <body>
 
-<div th:replace="/layout :: header"></div>
+<div th:fragment="header">
+    <div class="container-fluid header" id="header" style="border-bottom: solid 4px lightgrey">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-lg-2 col-xl-2 block-image">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-8 col-xl-8 block-background">
+                <h1 class="name-shop">Shop HQ</h1>
+                <br>
+                <div class="container-ef">
+                    <div class="text"><span>Chào mừng bạn đến với shop HQ chuyên Adidas</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid menu-navbar">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -30,47 +45,47 @@
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 product">
             <div id="form">
                 <form th:action="@{/registration}" th:object="${user} " method="POST" enctype="multipart/form-data">
-                    <div>
+                    <div  class="form-group">
                         <label>Account</label>
                         <th:block th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></th:block>
-                        <input type="text" th:field="*{account}"/>
+                        <input class="form-control" placeholder="Enter your account" required type="text" th:field="*{account}"/>
                     </div>
-                    <div>
+                    <div  class="form-group">
                         <label>Password</label>
                         <th:block th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></th:block>
-                        <input type="password" th:field="*{password}"/>
+                        <input class="form-control" placeholder="Enter your password" required type="password" th:field="*{password}"/>
                     </div>
-                    <div>
+                    <div  class="form-group">
                         <label>FullName</label>
                         <th:block th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></th:block>
-                        <input type="text" th:field="*{name}"/>
+                        <input class="form-control" placeholder="Enter your name" required type="text" th:field="*{name}"/>
                     </div>
-                    <div>
+                    <div  class="form-group">
                         <label>Age</label>
                         <th:block th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></th:block>
-                        <input type="text" th:field="*{age}"/>
+                        <input class="form-control" placeholder="Enter your age" required type="number" th:field="*{age}"/>
                     </div>
-                    <div>
+                    <div  class="form-group">
                         <label>Render</label>
                         <select th:field="*{render}">
                             <option th:each="r : ${renders}" th:value="${r.id}" th:text="${r.ren}"/>
                         </select>
                     </div>
-                    <div>
+                    <div  class="form-group">
                         <label>Phone</label>
                         <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
-                        <input type="text" th:field="*{phone}"/>
+                        <input class="form-control" placeholder="Enter your phone" required type="text" th:field="*{phone}"/>
                     </div>
-                    <div>
+                    <div  class="form-group">
                         <label>Address</label>
                         <th:block th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></th:block>
-                        <input type="text" th:field="*{address}"/>
+                        <input class="form-control" placeholder="Enter your address" required type="text" th:field="*{address}"/>
                     </div>
-                    <div>
+                    <div  class="form-group">
                         <label>Avatar</label>
                         <input type="file" th:field="*{image}"/>
                     </div>
-                    <input type="submit" value="Create new user">
+                    <input class="btn btn-primary" type="submit" value="Create new user">
                 </form>
             </div>
         </div>

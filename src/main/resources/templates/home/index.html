@@ -35,19 +35,19 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
+                        <a class="nav-link" th:href="@{/}">Trang chủ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="${pageContext.request.contextPath}/home?action=shirt&type=Áo">Áo</a>
+                           th:href="@{/type/{type}(type=${'áo'})}">Áo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="${pageContext.request.contextPath}/home?action=trousers&type=Quần">Quần</a>
+                           th:href="@{/type/{type}(type=${'quần'})}">Quần</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="${pageContext.request.contextPath}/home?action=shoes&type=Giày">Giày</a>
+                           th:href="@{/type/{type}(type=${'giày'})}">Giày</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">

@@ -2,12 +2,8 @@ package com.quan.demo.controller;
 
 import com.quan.demo.models.Product;
 import com.quan.demo.models.Render;
-import com.quan.demo.models.TypeProduct;
 import com.quan.demo.models.UserInfo;
-import com.quan.demo.service.ProductService;
-import com.quan.demo.service.RenderService;
-import com.quan.demo.service.RolesService;
-import com.quan.demo.service.UserService;
+import com.quan.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -15,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -40,10 +35,13 @@ public class HomeController {
     private RolesService rolesService;
 
     @Autowired
-    private Environment environment;
+    private TypeProductService typeProductService;
 
     @Autowired
     private RenderService renderService;
+
+    @Autowired
+    private Environment environment;
 
     @ModelAttribute("renders")
     public Iterable<Render> getListRender() {
@@ -69,6 +67,23 @@ public class HomeController {
             modelAndView.addObject("products", products);
             modelAndView.addObject("regex", regex.orElse(""));
         }
+        return modelAndView;
+    }
+
+    @GetMapping("/type/{type}")
+    public ModelAndView listProductByType(@PathVariable("type") String type,
+                                          @SortDefault(value = {"description"}) @PageableDefault(value = 100) Pageable pageable){
+
+        Page<Product> products;
+        ModelAndView modelAndView = new ModelAndView("home/index");
+        if(type.equals("áo")){
+            products = productService.findAllByTypeProduct(typeProductService.getTypeProduct(1L), pageable);
+        } else if (type.equals("quần")){
+            products = productService.findAllByTypeProduct(typeProductService.getTypeProduct(2L), pageable);
+        } else {
+            products = productService.findAllByTypeProduct(typeProductService.getTypeProduct(3L), pageable);
+        }
+        modelAndView.addObject("products", products);
         return modelAndView;
     }
 
