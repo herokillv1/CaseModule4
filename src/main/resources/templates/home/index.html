@@ -2,9 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/layout::head"></head>
 <body>
-<div th:replace="/layout :: header"></div>
-<div th:replace="/layout :: menu"></div>
 <div th:replace="/layout :: reload"></div>
+
+<div th:fragment="header">
+    <div class="container-fluid header" id="header" style="border-bottom: solid 4px lightgrey">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-lg-2 col-xl-2 block-image">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-8 col-xl-8 block-background">
+                <h1 class="name-shop">Shop HQ</h1>
+                <br>
+                <div class="container-ef">
+                    <div class="text"><span>Chào mừng bạn đến với shop HQ chuyên Adidas</span></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-2 col-xl-2 block-login">
+                <a role="button" class="btn btn-primary" href="/login">Login</a>
+                <a role="button" class="btn btn-primary" href="/registration">Registation</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid menu-navbar" th:fragment="menu">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/home?action=shirt&type=Áo">Áo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/home?action=trousers&type=Quần">Quần</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/home?action=shoes&type=Giày">Giày</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                           name="regex" th:value="${regex}">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">
@@ -18,7 +72,8 @@
         </th:block>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 product" th:each="product : ${products}">
             <div class="block-image-product" style="position: relative">
-                <img th:src="@{'/content/' + ${product.getAvatar()}}" class="img-responsive img-thumbnail" alt="không có"
+                <img th:src="@{'/content/' + ${product.getAvatar()}}" class="img-responsive img-thumbnail"
+                     alt="không có"
                      width="300px" height="300px">
                 <div class="block-status-product"
                      style="height: 30px; text-align: center ; position: absolute ; top: 10px ; left: 10px ;background-color: #ff253a">
@@ -39,9 +94,11 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 product"></div>
         <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 product">
-            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number - 1},regex=${regex})}" th:if="${products.hasPrevious()}">Previous</a>
+            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number - 1},regex=${regex})}"
+               th:if="${products.hasPrevious()}">Previous</a>
             <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
-            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number + 1},regex=${regex})}" th:if="${products.hasNext()}">Next</a>
+            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number + 1},regex=${regex})}"
+               th:if="${products.hasNext()}">Next</a>
         </div>
     </div>
 </div>

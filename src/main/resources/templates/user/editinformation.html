@@ -45,7 +45,9 @@
                     </div>
                     <div>
                         <label>Render</label>
-                        <input type="text" th:field="*{render}"/>
+                        <select th:field="*{render}">
+                            <option th:each="r : ${renders}" th:value="${r.id}" th:text="${r.ren}"/>
+                        </select>
                     </div>
                     <div>
                         <label>Phone</label>

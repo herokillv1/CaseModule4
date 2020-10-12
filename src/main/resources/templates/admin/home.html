@@ -3,17 +3,42 @@
 <head th:replace="/layout::head"></head>
 
 <body>
-
 <div th:replace="/layout :: header"></div>
-<div th:replace="/layout :: menu"></div>
 <div th:replace="/layout :: reload"></div>
 
+<div class="container-fluid menu-navbar" th:fragment="menu">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-<a href="/admin/create">Create new product</a> |
-<a href="/admin/createstaff">Create new staff</a> |
-<a href="/admin/bill">All bill</a> |
-<a href="/admin/listuser">List user</a>
-
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/admin/create">Create new product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/createstaff">Create new staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/bill">All bill</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/listuser">List user</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                           name="regex" th:value="${regex}">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+</div>
 
 <table id="customers">
     <thead>
@@ -58,17 +83,15 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 product"></div>
         <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 product">
-            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number - 1},regex=${regex})}" th:if="${products.hasPrevious()}">Previous</a>
+            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number - 1},regex=${regex})}"
+               th:if="${products.hasPrevious()}">Previous</a>
             <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
-            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number + 1},regex=${regex})}" th:if="${products.hasNext()}">Next</a>
+            <a role="button" class="btn btn-primary" th:href="@{'/'(page=${products.number + 1},regex=${regex})}"
+               th:if="${products.hasNext()}">Next</a>
         </div>
     </div>
 </div>
-<p>
-    <a th:href="@{/admin}">
-        Back to menu
-    </a>
-</p>
+
 
 <footer th:replace="/layout :: footer"></footer>
 </body>

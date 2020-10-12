@@ -41,7 +41,7 @@
     <tr th:each="user : ${users}">
         <td th:text="${user.getName()}"></td>
         <td th:text="${user.getAge()}"></td>
-        <td th:text="${user.getRender()}"></td>
+        <td th:text="${user.render.ren}"></td>
         <td th:text="${user.getAddress()}"></td>
         <td th:text="${user.getPhone()}"></td>
         <td><img th:src="@{'/content/' + ${user.getAvatar()}}" width="100" height="100" alt="Khongcoanh"/></td>

@@ -43,6 +43,14 @@ public class UserController {
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private RenderService renderService;
+
+    @ModelAttribute("renders")
+    public Iterable<Render> getListRender() {
+        return renderService.findAll();
+    }
+
     @ModelAttribute("user")
     private UserInfo getPrincipal() {
         UserInfo userInfo = null;

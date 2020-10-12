@@ -6,6 +6,7 @@
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js}"></script>
     <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/all.js}"></script>
     <title>Spring Customer</title>
 
     <script>
@@ -379,46 +380,11 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-lg-2 col-xl-2 block-login">
-                <a role="button" class="btn btn-primary" href="/login">Login</a>
-                <a role="button" class="btn btn-primary" href="/registration">Registation</a>
+                <a role="button" class="btn btn-primary" th:href="@{/logout}">
+                    Logout
+                </a>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="container-fluid menu-navbar" th:fragment="menu">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="${pageContext.request.contextPath}/home?action=shirt&type=Áo">Áo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="${pageContext.request.contextPath}/home?action=trousers&type=Quần">Quần</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="${pageContext.request.contextPath}/home?action=shoes&type=Giày">Giày</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-                           name="regex" th:value="${regex}">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
     </div>
 </div>
 
